@@ -48,6 +48,11 @@
 
   // TypeScript settings
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
-}
+  "typescript.enablePromptUseWorkspaceTsdk": true,
 
+  // Folder icons (requires Material Icon Theme extension)
+  "material-icon-theme.folders.associations": {
+    "active": "app",
+    "archive": "archive"
+  }
+}
