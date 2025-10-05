@@ -1,12 +1,17 @@
 import { createServer } from './server';
 import { config } from './config';
+import { registerMethods } from './methods';
 
-const startServer = async (): Promise<void> => {
+const startServer = (): void => {
     try {
+        // Register Meteor methods
+        registerMethods();
+
         const server = createServer();
 
         server.listen(config.port, () => {
             console.log(`Server running on port ${config.port}`);
+            console.log(`Environment: ${config.env}`);
         });
 
         const handleShutdown = (signal: string): void => {

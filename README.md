@@ -1,6 +1,6 @@
 # Prettier + ESLint + TypeScript Project
 
-A testing project with separate React frontend and Node.js backend environments. The compiled JavaScript files are intended to be injected into a different production project.
+A testing project with separate React frontend (with Ant Design and Meteor support) and Node.js backend environments. The compiled JavaScript files are intended to be injected into a different production project.
 
 ## Project Structure
 
@@ -125,17 +125,22 @@ npm run format:check
 
 ## Configuration Details
 
-### Frontend (React + Vite)
+### Frontend (React + Vite + Ant Design + Meteor)
 
-- Uses Vite for fast development and building
-- Configured to output as a library (ES modules and CommonJS)
-- React 19 with TypeScript
+- Uses Vite for fast development server
+- React 18.2 with TypeScript
+- Ant Design (antd) 5.16 for UI components
+- Meteor.call support with mock implementation for development
+- Compiles TypeScript to JavaScript (`.js` files, not `.jsx`)
 - Strict TypeScript settings
 - ESLint with React-specific rules
 
-### Backend (Node.js)
+### Backend (Node.js + Meteor Methods)
 
 - TypeScript with CommonJS modules
+- Meteor methods implementation
+- HTTP server with method call endpoint (`/methods`)
+- CORS enabled for development
 - Strict TypeScript settings
 - Source maps enabled for debugging
 - Declaration files generated
@@ -148,22 +153,40 @@ The compiled JavaScript files from `frontend/dist/` and `backend/dist/` can be i
 
 ```javascript
 // ES Module
-import { App } from './path/to/frontend/dist/index.mjs';
+import { App } from './path/to/frontend/dist/App.js';
 
 // CommonJS
-const { App } = require('./path/to/frontend/dist/index.js');
+const { App } = require('./path/to/frontend/dist/App.js');
 ```
 
 ### Backend
 
 ```javascript
 const { createServer } = require('./path/to/backend/dist/server.js');
+const { methods } = require('./path/to/backend/dist/methods.js');
 ```
+
+## Key Dependencies
+
+### Frontend
+
+- **react** & **react-dom**: React 18.2.0
+- **antd**: Ant Design 5.16.5 UI component library
+- **@ant-design/icons**: Ant Design 5.3.7 icon set
+- **@types/meteor**: TypeScript definitions for Meteor 2.9.3
+
+### Backend
+
+- **tsx**: TypeScript execution for development
+- **@types/meteor**: TypeScript definitions for Meteor 2.9.3
 
 ## Notes
 
 - All TypeScript files must use arrow functions (enforced by ESLint)
-- Frontend uses JSX runtime (no need to import React in every file)
+- Frontend uses React 18 with `jsx: "react-jsx"` (no need to import React in every file)
 - Backend uses CommonJS for better Node.js compatibility
 - Both environments have separate TypeScript configurations
 - ESLint configurations are environment-specific (browser vs Node.js)
+- Meteor.call in frontend uses a mock that calls the backend HTTP endpoint
+- In production Meteor environment, the mock automatically detects and uses real Meteor
+- All compiled output is `.js` files (TypeScript JSX is transpiled to React.createElement calls)
