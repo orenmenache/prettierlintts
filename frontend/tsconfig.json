@@ -16,7 +16,8 @@
     "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "sourceMap": false,
+    "removeComments": true,
 
     /* Linting */
     "strict": true,
