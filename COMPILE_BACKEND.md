@@ -1,4 +1,13 @@
-# Compiling Backend TypeScript Files
+# Backend Development Guide
+
+## Quick Commands
+
+| Command                 | What It Does                           |
+| ----------------------- | -------------------------------------- |
+| `npm run build:backend` | Compile all backend files              |
+| `npm run lint`          | Lint backend + frontend                |
+| `npm run format`        | Format all files (backend + frontend)  |
+| `npm run dev:backend`   | Run backend dev server with watch mode |
 
 ## Compile All Backend Files
 
@@ -7,13 +16,54 @@ cd backend
 tsc
 ```
 
-Output: `backend/dist/*.js` files with 4-space indentation
+Output: `backend/dist/active/*.js` files with 4-space indentation
+
+**Note:** Only files in `src/active/` are compiled. Files in `src/archive/` are ignored.
+
+## Lint Backend Code
+
+```bash
+npm run lint
+```
+
+This lints **both** backend and frontend. ESLint checks:
+
+- Code quality issues
+- TypeScript best practices
+- Arrow function enforcement
+- Unused variables
+- Floating promises
+
+**Fix automatically:**
+
+```bash
+npm run lint:fix
+```
+
+## Format Backend Code
+
+```bash
+npm run format
+```
+
+This formats **all** files (backend + frontend) with Prettier:
+
+- Backend `.ts` files: 4-space indentation
+- Enforces consistent style
+
+**Note:** Formatting does NOT happen automatically on save. Run this command manually.
+
+**Check formatting without changing files:**
+
+```bash
+npm run format:check
+```
 
 ## Compile a Single File
 
 ```bash
 cd backend
-npx tsc src/index.ts --outDir dist --module commonjs --target ES2022
+npx tsc src/active/index.ts --outDir dist --module commonjs --target ES2022
 ```
 
 ## Compile with 2-Space Indentation
@@ -59,12 +109,32 @@ prettier --write "dist/methods.js" --tab-width 4
 | `prettier --write "dist/**/*.js" --tab-width 2` | Format output with 2 spaces           |
 | `prettier --write "dist/**/*.js" --tab-width 4` | Format output with 4 spaces           |
 
+## Development Workflow
+
+**Typical workflow:**
+
+```bash
+# 1. Make changes to backend/src/active/*.ts files
+# 2. Format code
+npm run format
+
+# 3. Lint code
+npm run lint
+
+# 4. Compile
+npm run build:backend
+
+# 5. Or run dev server (auto-recompiles on changes)
+npm run dev:backend
+```
+
 ## Output Location
 
-- **Source**: `backend/src/*.ts`
-- **Compiled**: `backend/dist/*.js`
-- **Type Definitions**: `backend/dist/*.d.ts`
-- **Source Maps**: `backend/dist/*.js.map`
+- **Source (active)**: `backend/src/active/*.ts`
+- **Source (archive)**: `backend/src/archive/*.ts` (NOT compiled)
+- **Compiled**: `backend/dist/active/*.js`
+- **Type Definitions**: `backend/dist/active/*.d.ts`
+- **Source Maps**: NOT generated (`sourceMap: false`)
 
 ## Notes
 

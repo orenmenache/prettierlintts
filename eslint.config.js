@@ -13,6 +13,8 @@ module.exports = [
       'dist/**',
       'frontend/dist/**',
       'backend/dist/**',
+      'frontend/src/archive/**',
+      'backend/src/archive/**',
       'coverage/**',
       '*.config.js',
     ],

@@ -27,6 +27,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+  "include": ["src/active/**/*"],
+  "exclude": ["node_modules", "dist", "src/archive", "**/*.test.ts", "**/*.test.tsx"]
 }
